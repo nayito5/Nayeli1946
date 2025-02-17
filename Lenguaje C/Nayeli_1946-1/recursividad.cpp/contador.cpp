@@ -9,7 +9,7 @@ void counter (int n)
     {
         cout << "Valor de n" << n << endl;
         counter (n-1);
-        cout << "Valor de n despues del control" << n << endl;
+        cout << "Valor de n despues del controles" << n << endl;
         return;
     }
 }
