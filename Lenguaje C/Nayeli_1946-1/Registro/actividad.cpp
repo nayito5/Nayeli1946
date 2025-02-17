@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 struct persona{
-    string nombre="Sin nombre"; //componentes llamados miembros teniendo un nombre unico
+    string nombre="Sin nombre"; //componentes llamados miembros teniendo un nombre unico en la estructura
     int edad=0;
     float estatura=0.0; 
 }persona1,persona2; //ambito global, al final;
@@ -12,7 +12,7 @@ void registro(){
 main ()
 {
 
-    persona persona3,persona4; //de tipo local p3,p4. Persona es nuevo tipo de dato struct
+    persona persona3,persona4; //de tipo local p3,p4. Persona es nuevo tipo de dato struct que se llama persona
     persona3.nombre = "Carlos Ortiz";
     persona3.edad = 28 ;
     persona3.estatura = 1.75;

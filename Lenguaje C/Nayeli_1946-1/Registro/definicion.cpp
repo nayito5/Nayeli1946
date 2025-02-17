@@ -4,7 +4,7 @@ struct persona{
     string nombre="Sin nombre"; //componentes llamados miembros teniendo un nombre unico
     int edad=0;
     float estatura=0.0; 
-}persona1,persona2; //ambito global, al final;
+}persona1,persona2; //ambito global, al final ayuda;
 
 struct {
     string nombre;

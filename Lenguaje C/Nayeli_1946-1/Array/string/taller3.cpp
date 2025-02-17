@@ -25,7 +25,7 @@ int main() {
 
 
     int comparacion = cadena.compare(objetivo);
-    cout << "Comparacion: " << comparacion << endl;
+    cout << "Comparaciony: " << comparacion << endl;
 
   
     int encontrado = cadena.find("le");
