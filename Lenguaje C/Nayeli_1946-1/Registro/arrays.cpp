@@ -1,4 +1,4 @@
-
+// Registro de estudiantes con arrays
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -9,6 +9,7 @@ struct estudiante
     string nombre;
     float notap;
 };
+ 
 
 main ()
 {

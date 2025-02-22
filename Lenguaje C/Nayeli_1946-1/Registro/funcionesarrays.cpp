@@ -1,52 +1,96 @@
-#include<iostream>
+// Creacion y busqueda de registros con funciones y arreglos
+#include <iostream>
 using namespace std;
 
-struct personas {
+struct persona {
     int id;
     string nombre;
     int edad;
-    bool casado= false;
-
+    bool casado = false;
 };
- void ingresarDatosRegistros(personas per[],int n){
+
+void ingresarDatosRegristro(persona per[], int n) {
     char resp;
-    int i;
-    for(i=0;i<n;i++){
-        per[i].id=i+1;
-        cout<<"Ingrese el nombre de la persona :";
-        cin>>per[i].nombre;
-        cout<<"Ingrese la edad de la persona :";
-        cin>>per[i].edad;
-        cout<<"es casado?:" <<"S/N:";
-        cin.get(resp);
-        cin.ignore();
-        if(resp=='S' || resp=='s'){
-            per[i].casado=true;
+    cin.ignore(); // Evitar problemas con buffer
+    for (int i = 0; i < n; i++) {
+        per[i].id = i + 1;
+        cout << "Ingrese nombre y apellido: ";
+        getline(cin, per[i].nombre); // Captura nombre completo
+        cout << "Ingrese edad: ";
+        cin >> per[i].edad;
+        cout << "Es casado? (S/N): ";
+        cin >> resp;
+        cin.ignore(); // Evita problemas con el buffer.
+        if (resp == 's' || resp == 'S') {
+            per[i].casado = true;
         }
-        else{
-            per[i].casado=false;
-        }
-        
     }
- }
- void mostrarDatosRegistros(personas per[],int n){
-    int i;
-    for(i=0;i<n;i++){
-        cout<<per[i].id<<"\t";
-        cout<<per[i].nombre<<"\t";
-        cout<<per[i].edad<<"\t";    
-        if(per[i].casado==true){
-            cout<<"Si"<<endl;
+}
+
+void mostrarRegistro(persona per[], int n) {
+    cout << "ID\tNOMBRE\tEDAD\tCASADO" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << per[i].id << "\t" << per[i].nombre << "\t"
+             << per[i].edad << "\t" << (per[i].casado ? "Si" : "No") << endl;
+    }
+}
+
+persona buscarPersonaId(persona per[], int n, int d) {
+    for (int i = 0; i < n; i++) {
+        if (per[i].id == d) {
+            return per[i];
         }
+    }
+    return {}; // Retorna una estructura vacía si no se encuentra.
+}
 
- }
+void buscarPersonaNombres(persona per[], int n, string nombres) {
+    int contador = 0;
+    for (int i = 0; i < n; i++) {
+        if (per[i].nombre == nombres) {
+            contador++;
+            cout << per[i].id << "\t" << per[i].nombre << "\t"
+                 << per[i].edad << "\t" << (per[i].casado ? "Si" : "No") << endl;
+        }
+    }
+    if (contador == 0) {
+        cout << "No se encontro ninguna persona con ese nombre.\n";
+    } else {
+        cout << "Total de personas encontradas con el nombre '" << nombres << "': " << contador << endl;
+    }
+}
 
- }
- main(){
-     int np;
-     cout<<"Ingrese el numero de personas: ";
-     cin>>np;
-     personas per[np];
-     ingresarDatosRegistros(per,np);
-     mostrarDatosRegistros(per,np);
- }
+int main() {
+    int np, id;
+    string nombre;
+    
+    cout << "Ingrese la cantidad de personas: ";
+    cin >> np;
+    
+    persona personas[np], encontrada;
+
+    ingresarDatosRegristro(personas, np);
+    mostrarRegistro(personas, np);
+
+    // Buscar por ID
+    cout << "Ingrese el ID de la persona a buscar: ";
+    cin >> id;
+    encontrada = buscarPersonaId(personas, np, id);
+    
+    if (encontrada.id != 0) {
+        cout << "Persona encontrada por ID:\n";
+        cout << encontrada.id << "\t" << encontrada.nombre << "\t"
+             << encontrada.edad << "\t" << (encontrada.casado ? "Si" : "No") << endl;
+    } else {
+        cout << "No se encontro ninguna persona con ese ID.\n";
+    }
+
+    cin.ignore(); // Evitar problemas con getline
+
+    // Buscar por nombre
+    cout << "Ingrese el nombre de la persona a buscar: ";
+    getline(cin, nombre);
+    buscarPersonaNombres(personas, np, nombre);
+
+    return 0;
+}

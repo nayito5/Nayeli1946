@@ -1,3 +1,4 @@
+// Registro de una persona con funciones
 #include <iostream>
 using namespace std;
 struct persona{
