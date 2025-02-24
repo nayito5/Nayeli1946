@@ -1,4 +1,4 @@
-// Registro de estudiantes con arrays
+// Registro de estudiantes con arrays.....
 #include <iostream>
 #include <iomanip>
 using namespace std;

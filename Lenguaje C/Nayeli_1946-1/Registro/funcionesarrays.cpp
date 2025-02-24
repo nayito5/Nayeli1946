@@ -1,4 +1,4 @@
-// Creacion y busqueda de registros con funciones y arreglos
+// Creacion y busqueda de registros con funciones y arreglos......
 #include <iostream>
 using namespace std;
 
