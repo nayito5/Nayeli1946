@@ -26,6 +26,17 @@ void buscarPalabras(ifstream &archivosEntrada, ofstream &archivoSalida, string p
        archivosEntrada.close();
        archivoSalida.close();
     }
+void manejoArchivos(){
+     if (remove ("archivo.txt") ==  -1){
+        perror("Error al borrar el archivo");
+     }else 
+       printf("Archivo borrado con exito");
+    if (rename("archivo2.txt", "archivo.txt") == -1){
+        perror("Error al renombrar el archivo");
+    }else 
+       printf("Archivo renombrado con exito");  
+}
+
    
 int main(){
     ifstream archivoEntrada;
@@ -39,4 +50,4 @@ int main(){
     cout << "proceso completado" << endl;
     return 0;
 }
-    
+  
