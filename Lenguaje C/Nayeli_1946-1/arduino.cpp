@@ -1,0 +1,190 @@
+#include <LiquidCrystal.h>
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+int horas, minutos, segundos;
+long int tiempo_inicial, tiempo_final, tiempo_transcurrido;
+
+void setup() {
+  lcd.begin(16, 2); // Corregido el tamaño de la pantalla LCD
+  Serial.begin(9600);
+
+  pinMode(6, OUTPUT);
+  pinMode(7, INPUT);
+  pinMode(8, INPUT);
+  pinMode(9, INPUT);
+
+  // Ajuste de HORAS
+HORAS:
+  lcd.print("CLOCK ADJUSTMENT = ");
+  lcd.setCursor(0, 1);
+  lcd.print("PUSH B-1");
+
+  // TO SET HOURS
+  while (digitalRead(7) == 1) 
+  {
+  }
+  delay(500);
+  while (digitalRead(7) == 1) 
+  {
+    lcd.setCursor(0, 1);
+    lcd.print(" HORAS=");
+    lcd.setCursor(8, 1);
+    if (horas < 10) 
+    {
+      lcd.print("0");
+      lcd.print(horas);
+    } else {
+      lcd.print(horas);
+    }
+
+    if (digitalRead(8) == 0) 
+    {
+      horas = horas + 1;
+      delay(200);
+    }
+    if (digitalRead(9) == 0) 
+    {
+      horas = horas - 1;
+      delay(200);
+    }
+  }
+
+  // Validación de horas
+  if (horas > 24 || horas < 0)
+  {
+    Serial.println("DATA INCORRECTA");
+    goto HORAS;
+  }
+
+  // SET MINUTES
+  while (digitalRead(7) == 1)
+  {
+  }
+  delay(500);
+  while (digitalRead(7) == 1) 
+  {
+    lcd.setCursor(0, 1);
+    lcd.print("MINUTES=");
+    lcd.setCursor(8, 1);
+    if (minutos < 10) {
+      lcd.print("0");
+      lcd.print(minutos);
+    } 
+    else 
+    {
+      lcd.print(minutos);
+    }
+
+    if (digitalRead(8) == 0) {
+      minutos = minutos + 1;
+      delay(200);
+    }
+    if (digitalRead(9) == 0) 
+    {
+      minutos = minutos - 1;
+      delay(200);
+    }
+  }
+
+  // SET SECONDS
+  while (digitalRead(7) == 1) 
+  {
+  }
+  delay(500);
+  while (digitalRead(7) == 1)
+  {
+    lcd.setCursor(0, 1);
+    lcd.print("SECONDS=");
+    lcd.setCursor(8, 1);
+    if (segundos < 10) {
+      lcd.print("0");
+      lcd.print(segundos);
+    } 
+    else 
+    {
+      lcd.print(segundos);
+    }
+
+    if (digitalRead(8) == 0) {
+      segundos = segundos + 1;
+      delay(200);
+    }
+    if (digitalRead(9) == 0) {
+      segundos = segundos - 1;
+      delay(200);
+    }
+  }
+
+  delay(500);
+  lcd.setCursor(0, 0);
+  lcd.print("              ");
+  while (digitalRead(7) == 1) {
+    lcd.setCursor(0, 0);
+    lcd.print(horas);
+    lcd.print(":");
+    lcd.print(minutos);
+    lcd.print(":");
+    lcd.print(segundos);
+    lcd.setCursor(0, 1);
+    lcd.print("PUSH B1 O START");
+  }
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
+}
+
+void loop() {
+  //tiempo_inicial=millis();
+  delay(1000);
+  segundos = segundos + 1;
+  if (segundos == 60) {
+    segundos = 0;
+    minutos = minutos + 1;
+  }
+  if (minutos == 60) {
+    minutos = 0;
+    horas = horas + 1;
+  }
+  if (horas == 24) {
+    horas = 0;
+  }
+
+  lcd.setCursor(0, 0);
+  lcd.print("                   ");
+  lcd.setCursor(0, 0);
+
+  if (horas < 10) {
+    lcd.print("0");
+    lcd.print(horas);
+  } else {
+    lcd.print(horas);
+  }
+  lcd.print(":");
+  Serial.print(":");
+  if (minutos < 10) 
+  {
+    lcd.print("0");
+    lcd.print(minutos);
+  } 
+  else
+  {
+    lcd.print(minutos);
+  }
+  lcd.print(":");
+  if (segundos < 10) 
+  {
+    lcd.print("0");
+    lcd.print(segundos);
+  } 
+  else 
+  {
+    lcd.print(segundos);
+  }
+
+  // Alarma Handling
+  if (horas == 16 && minutos == 34) 
+  {
+    digitalWrite(6, HIGH);
+  }
+}
