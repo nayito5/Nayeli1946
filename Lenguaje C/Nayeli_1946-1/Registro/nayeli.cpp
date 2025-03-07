@@ -34,10 +34,10 @@ int main(){
             cout << conductores[i].kilometros[j] << " ";
         }
         cout << "\nTotal kilómetros recorridos: " << conductores[i].total_kms << " km\n";
-        cout << "-----------------------------------\n";
+        cout << "--------------------------------------\n";
     }
     
-    
+
     return 0;
 }
 
